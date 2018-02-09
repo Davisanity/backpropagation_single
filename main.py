@@ -7,7 +7,7 @@ def main():
 	inputs = [(1,2),(2,3)]
 	output = [(0.5,0.6),(0.3,0.7)]
 	n = Neural(inputs,output,2,3,2)
-	n.train_model(5000)
+	n.train_model(1500)
 	# for itera in range(1000):
 	# 	print("*****"+str(itera)+"*****")
 	# 	for i in range(len(inputs)):

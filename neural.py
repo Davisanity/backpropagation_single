@@ -1,6 +1,7 @@
 from numpy import random
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Neural:
 	#neural structure is 
@@ -20,7 +21,7 @@ class Neural:
 		self.w_ih=random.uniform(-1,2,size=(n_input+1,n_hidden)).round(decimals=3)
 		self.w_ho=random.uniform(-1,2,size=(n_hidden+1,n_output)).round(decimals=3)
 		
-		self.learn = 3#learning rate
+		self.learn = 0.5#learning rate
 		#error here means delta in website
 		self.sigma_o=np.zeros([n_output])
 		self.sigma_h=np.zeros([n_hidden])
@@ -86,6 +87,8 @@ class Neural:
 
 	#ERROR will become more bigger after train???
 	def train_model(self,iter_times):
+		pltx=np.arange(0,iter_times)
+		plty=np.zeros(iter_times)
 		for i in range(iter_times):
 			temp_error=0
 			self.e_total=0
@@ -97,7 +100,22 @@ class Neural:
 				self.back_propagete_error(j)
 				print("OUTPUT:",self.output)
 			self.e_total=temp_error
+			plty[i]=self.e_total
 			print("ERROR:",self.e_total)
+		#plot errors
+		plt.subplot(211)
+		plt.plot(pltx,plty)
+		plt.title("Rough scatter")
+		plt.ylabel("Total Error")
+
+		plt.subplot(212)
+		plt.plot(pltx,plty)
+		plt.title("Accurate scatter")
+		plt.ylabel("Total Error")
+		plt.xlabel("iter times")
+		plt.ylim((0,0.015))
+		plt.show()
+
 
 		# n.forword(n.w_ih,n.input,n.hidden,len(n.hidden)-1) #len()-1 because bias don't need to caculate
 		# n.forword(n.w_ho,n.hidden,n.output,len(n.output))
